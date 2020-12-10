@@ -9,7 +9,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
-        title: "Welcome hello flutter", home: new RandomWords());
+      title: "Welcome hello flutter",
+      home: new RandomWords(),
+      theme: new ThemeData(primaryColor: Colors.white),
+    );
   }
 }
 
@@ -62,11 +65,36 @@ class RandomWordsState extends State<RandomWords> {
     );
   }
 
+  void _pushSaved() {
+    Navigator.of(context).push(new MaterialPageRoute(builder: (context) {
+      final tiles = _save.map((e) {
+        return new ListTile(
+          title: new Text(
+            e.asPascalCase,
+            style: _biggestFont,
+          ),
+        );
+      });
+      final divided =
+          ListTile.divideTiles(tiles: tiles, context: context).toList();
+
+      return new Scaffold(
+        appBar: new AppBar(
+          title: new Text("Save suggestions"),
+        ),
+        body: new ListView(children: divided),
+      );
+    }));
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
         title: new Text("Name generator"),
+        actions: [
+          new IconButton(icon: new Icon(Icons.list), onPressed: _pushSaved)
+        ],
       ),
       body: _buildSuggestions(),
     );
