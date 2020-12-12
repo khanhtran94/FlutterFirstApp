@@ -16,7 +16,14 @@ class MyApp extends StatelessWidget {
         appBar: new AppBar(
           title: new Text(titile),
         ),
-        body: null,
+        body: new TextField(
+          autocorrect: true,
+          onChanged: (value) {
+            print(value);
+          },
+          decoration: new InputDecoration(
+              border: InputBorder.none, hintText: "Please enter search"),
+        ),
       ),
     );
   }
