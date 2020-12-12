@@ -16,7 +16,16 @@ class MyApp extends StatelessWidget {
         appBar: new AppBar(
           title: new Text(titile),
         ),
-        body: null,
+        body: new Center(
+          child: new Text("show text"),
+        ),
+        floatingActionButton: new IconButton(
+          icon: new Icon(Icons.volume_mute),
+          tooltip: "mute",
+          onPressed: () {
+            print("button press");
+          },
+        ),
       ),
     );
   }
