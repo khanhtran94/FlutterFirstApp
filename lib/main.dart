@@ -16,7 +16,17 @@ class MyApp extends StatelessWidget {
         appBar: new AppBar(
           title: new Text(titile),
         ),
-        body: null,
+        body: new Center(
+          child: new FlatButton(
+            onPressed: () {
+              print("button press");
+            },
+            child: new Text(
+              "Flat button",
+            ),
+            color: Colors.red,
+          ),
+        ),
       ),
     );
   }
