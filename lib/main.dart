@@ -5,7 +5,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final titile = "GridView example";
+  final titile = "button bar example";
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,21 @@ class MyApp extends StatelessWidget {
         appBar: new AppBar(
           title: new Text(titile),
         ),
-        body: null,
+        body: new Center(
+          child: new ButtonBar(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              new RaisedButton(
+                onPressed: () {},
+                child: new Text("Yes"),
+              ),
+              new RaisedButton(
+                onPressed: () {},
+                child: new Text("No"),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }
