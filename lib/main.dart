@@ -9,14 +9,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new MaterialApp(
       title: titile,
       home: new Scaffold(
         appBar: new AppBar(
           title: new Text(titile),
         ),
-        body: null,
+        body: new Center(
+          child: new Text(
+            "Hello, how are you , how are you ? i fine thanks you Hello, how are you , how are you ? i fine thanks you",
+            textAlign: TextAlign.center,
+            overflow: TextOverflow.clip,
+            style: new TextStyle(fontWeight: FontWeight.bold),
+          ),
+        ),
       ),
     );
   }
