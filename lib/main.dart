@@ -16,7 +16,12 @@ class MyApp extends StatelessWidget {
         appBar: new AppBar(
           title: new Text(titile),
         ),
-        body: null,
+        body: new Center(
+          child: new FittedBox(
+            fit: BoxFit.contain,
+            child: new Image.asset("TacoCloud.png"),
+          ),
+        ),
       ),
     );
   }
