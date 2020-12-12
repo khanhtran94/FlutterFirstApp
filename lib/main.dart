@@ -5,7 +5,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final titile = "GridView example";
+  final titile = "Row example";
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,27 @@ class MyApp extends StatelessWidget {
         appBar: new AppBar(
           title: new Text(titile),
         ),
-        body: null,
+        body: new Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            new Expanded(
+                child: new Text(
+              "Text 1",
+              textAlign: TextAlign.right,
+              style: new TextStyle(
+                color: Colors.green,
+              ),
+            )),
+            new Expanded(child: new Text("Text 2")),
+            new Expanded(child: new Text("Text 3")),
+            new Expanded(child: new Text("Text 4")),
+            new Expanded(
+                child: new FittedBox(
+              fit: BoxFit.contain,
+              child: const FlutterLogo(),
+            ))
+          ],
+        ),
       ),
     );
   }
