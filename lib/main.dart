@@ -17,12 +17,13 @@ class MyApp extends StatelessWidget {
           title: new Text(titile),
         ),
         body: new Center(
-          child: new FloatingActionButton(
-            onPressed: () {
-              print("press data");
-            },
-            child: new Icon(Icons.access_alarm),
-          ),
+          child: new Text("some text"),
+        ),
+        floatingActionButton: new FloatingActionButton(
+          onPressed: () {
+            print("press data");
+          },
+          child: new Icon(Icons.access_alarm),
         ),
       ),
     );
