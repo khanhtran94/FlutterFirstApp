@@ -17,12 +17,12 @@ class MyApp extends StatelessWidget {
           title: new Text(titile),
         ),
         body: new Center(
-          child: new FlatButton(
+          child: new RaisedButton(
             onPressed: () {
               print("button press");
             },
             child: new Text(
-              "Flat button",
+              "raise button",
             ),
             color: Colors.red,
           ),
