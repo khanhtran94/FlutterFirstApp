@@ -5,7 +5,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final titile = "GridView example";
+  final titile = "Container example";
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,21 @@ class MyApp extends StatelessWidget {
         appBar: new AppBar(
           title: new Text(titile),
         ),
-        body: null,
+        body: new Container(
+          margin: const EdgeInsets.all(10.0),
+          color: const Color(0xFF00ff11),
+          width: 300.0,
+          height: 300.0,
+          child: new Text(
+            "My container",
+            style: Theme.of(context)
+                .textTheme
+                // ignore: deprecated_member_use
+                .display1
+                .copyWith(color: Colors.white),
+          ),
+          alignment: Alignment.center,
+        ),
       ),
     );
   }
