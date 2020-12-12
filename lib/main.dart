@@ -5,7 +5,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final titile = "GridView example";
+  final titile = "Floating button example";
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,14 @@ class MyApp extends StatelessWidget {
         appBar: new AppBar(
           title: new Text(titile),
         ),
-        body: null,
+        body: new Center(
+          child: new FloatingActionButton(
+            onPressed: () {
+              print("press data");
+            },
+            child: new Icon(Icons.access_alarm),
+          ),
+        ),
       ),
     );
   }
