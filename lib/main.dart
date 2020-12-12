@@ -41,9 +41,12 @@ class SelectionButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return new RaisedButton(onPressed: () {
-      _navigateAndDisplaySelection(context);
-    });
+    return new RaisedButton(
+      onPressed: () {
+        _navigateAndDisplaySelection(context);
+      },
+      child: new Text("Make a selection"),
+    );
   }
 }
 
