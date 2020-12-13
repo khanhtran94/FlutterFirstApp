@@ -33,49 +33,40 @@ void main() {
             color: Colors.white,
             margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
             child: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Row(
-                children: [
-                  Icon(
-                    Icons.ac_unit_sharp,
+                padding: EdgeInsets.all(10.0),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.phone,
                     color: Colors.orange,
                   ),
-                  SizedBox(
-                    width: 10.0,
-                  ),
-                  Text(
+                  title: Text(
                     "0963192894",
                     style: TextStyle(
                         color: Colors.black,
                         fontFamily: 'Satisfy',
                         fontSize: 20.0),
-                  )
-                ],
-              ),
-            ),
+                  ),
+                )),
           ),
           Card(
             color: Colors.white,
             margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
             child: Padding(
-              padding: EdgeInsets.all(10.0),
-              child: Row(
-                children: [
-                  Icon(Icons.email, color: Colors.orange),
-                  SizedBox(
-                    width: 10,
+                padding: EdgeInsets.all(10.0),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.mail,
+                    color: Colors.orange,
                   ),
-                  Text(
-                    "khanhtttas@gmail.com",
+                  title: Text(
+                    "khanhtrantung@gmail.com",
                     style: TextStyle(
-                        color: Colors.orange.shade400,
+                        color: Colors.black,
                         fontFamily: 'Satisfy',
-                        fontSize: 20),
-                  )
-                ],
-              ),
-            ),
-          )
+                        fontSize: 20.0),
+                  ),
+                )),
+          ),
         ],
       )),
     ),
