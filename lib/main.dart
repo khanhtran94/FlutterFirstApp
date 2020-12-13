@@ -4,19 +4,47 @@ void main() {
   runApp(new MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  final titile = "GridView example";
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  String homeAddress = "";
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    homeAddress = "";
+  }
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return new MaterialApp(
-      title: titile,
       home: new Scaffold(
         appBar: new AppBar(
-          title: new Text(titile),
+          title: new Text("Textfield"),
         ),
-        body: null,
+        body: new Column(
+          children: [
+            new Icon(
+              Icons.home,
+              size: 64,
+              color: Colors.blue,
+            ),
+            new TextField(
+              onChanged: (String newValue) {
+                setState(() {
+                  homeAddress = newValue;
+                });
+              },
+              decoration: new InputDecoration(
+                  hintText: "Enter your home address",
+                  labelText: "Home address"),
+            ),
+            new Text(homeAddress)
+          ],
+        ),
       ),
     );
   }
