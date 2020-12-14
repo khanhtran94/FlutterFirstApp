@@ -7,7 +7,7 @@ void main() {
       backgroundColor: Colors.orange.shade300,
       appBar: new AppBar(
         title: new Text(
-          "Dice game",
+          "tictac game",
           style: TextStyle(color: Colors.blueAccent),
         ),
         backgroundColor: Colors.orange.shade50,
@@ -22,84 +22,221 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
-  double age = 0.0;
-  var selectedYear;
-  Animation animation;
-  AnimationController animationController;
-
+class _HomePageState extends State<HomePage> {
+  List<GameButton> buttonList;
+  var player1;
+  var player2;
+  var activePlayer;
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    animationController = new AnimationController(
-        vsync: this, duration: Duration(microseconds: 1500));
-    animation = animationController;
+    buttonList = initGameButtons();
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    animationController.dispose();
-    super.dispose();
+  List<GameButton> initGameButtons() {
+    player1 = List();
+    player2 = List();
+    activePlayer = 1;
+    var gameButtons = <GameButton>[
+      GameButton(id: 1),
+      GameButton(id: 2),
+      GameButton(id: 3),
+      GameButton(id: 4),
+      GameButton(id: 5),
+      GameButton(id: 6),
+      GameButton(id: 7),
+      GameButton(id: 8),
+      GameButton(id: 9),
+    ];
+    return gameButtons;
   }
 
-  void _showPicker() {
-    showDatePicker(
-            context: context,
-            initialDate: DateTime(DateTime.now().year),
-            firstDate: DateTime(1900),
-            lastDate: DateTime.now())
-        .then((DateTime value) {
-      selectedYear = value.year;
-      calculateAge();
-    });
-  }
-
-  void calculateAge() {
+  void playGame(GameButton gb) {
     setState(() {
-      age = (DateTime.now().year - selectedYear).toDouble();
-      animation = Tween<double>(
-        begin: animation.value,
-        end: age,
-      ).animate(CurvedAnimation(
-          curve: Curves.fastOutSlowIn, parent: animationController));
+      if (activePlayer == 1) {
+        gb.text = "X";
+        gb.bg = Colors.green;
+        activePlayer = 2;
+        player1.add(gb.id);
+      } else {
+        gb.text = "O";
+        gb.bg = Colors.red;
+        activePlayer = 1;
+        player2.add(gb.id);
+      }
+
+      gb.enabled = false;
+
+      int winner = checkWinner();
+
+      if (winner == -1) {
+        if (buttonList.every((element) => element.text != "")) {
+          showDialog(
+              context: context,
+              builder: (_) => CustomDialog(
+                  "Game tied!", "Press the reset button", resetGame));
+        } else {
+          activePlayer == 2 ? autoPlay() : null;
+        }
+      }
     });
-    animationController.forward(from: 0.0);
+  }
+
+  void autoPlay() {
+    var emptyCells = List();
+    var list = List.generate(9, (index) => index + 1);
+    for (var cellID in list) {
+      if (!player1.contains(cellID) && !player2.contains(cellID)) {
+        emptyCells.add(cellID);
+      }
+    }
+
+    var r = Random();
+    var randomIndex = r.nextInt(emptyCells.length - 1);
+    var cellID = emptyCells[randomIndex];
+    int i = buttonList.indexWhere((element) => element.id == cellID);
+    playGame(buttonList[i]);
+  }
+
+  int checkWinner() {
+    var winner = -1;
+    if (player1.contains(1) && player1.contains(2) && player1.contains(3)) {
+      winner = 1;
+    }
+    if (player1.contains(4) && player1.contains(5) && player1.contains(6)) {
+      winner = 1;
+    }
+    if (player1.contains(7) && player1.contains(8) && player1.contains(9)) {
+      winner = 1;
+    }
+
+    if (player2.contains(1) && player2.contains(2) && player2.contains(3)) {
+      winner = 2;
+    }
+    if (player2.contains(4) && player2.contains(5) && player2.contains(6)) {
+      winner = 1;
+    }
+
+    if (player2.contains(7) && player2.contains(8) && player2.contains(9)) {
+      winner = 1;
+    }
+
+    if (winner != -1) {
+      if (winner == 1) {
+        showDialog(
+            context: context,
+            builder: (_) => CustomDialog(
+                "Player 1 won the game", "Start again", resetGame));
+      } else {
+        if (winner == 1) {
+          showDialog(
+              context: context,
+              builder: (_) => CustomDialog(
+                  "Player 2 won the game", "Start again", resetGame));
+        }
+      }
+    }
+    return winner;
+  }
+
+  void resetGame() {
+    if (Navigator.canPop(context)) {
+      Navigator.pop(context);
+    }
+    setState(() {
+      buttonList = initGameButtons();
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return Scaffold(
-      appBar: new AppBar(
-        title: new Text("Calculate your age 😀"),
+      appBar: AppBar(
+        title: Text("Tic tac toe"),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            OutlineButton(
-              child: Text(selectedYear != null
-                  ? selectedYear.toString()
-                  : "Select birt year"),
-              borderSide: BorderSide(color: Colors.black, width: 2.0),
-              color: Colors.white,
-              onPressed:
-                  _showPicker, // khong hieu tai sao o day showpicker phai goi nhu nay ma o phai them () phia sau nhu goi ham
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(
+            child: GridView.builder(
+                padding: EdgeInsets.all(10),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,
+                  childAspectRatio: 1,
+                  crossAxisSpacing: 9,
+                  mainAxisSpacing: 9,
+                ),
+                itemCount: buttonList.length,
+                itemBuilder: (context, i) => SizedBox(
+                      width: 100,
+                      height: 100,
+                      child: RaisedButton(
+                        padding: EdgeInsets.all(8),
+                        onPressed: buttonList[i].enabled
+                            ? () => playGame(buttonList[i])
+                            : null,
+                        child: Text(buttonList[i].text,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            )),
+                        color: buttonList[i].bg,
+                        disabledColor: buttonList[i].bg,
+                      ),
+                    )),
+          ),
+          RaisedButton(
+            color: Colors.red,
+            child: Text(
+              "Reset",
+              style: TextStyle(color: Colors.white, fontSize: 20),
             ),
-            Padding(padding: EdgeInsets.all(20)),
-            AnimatedBuilder(
-                animation: animation,
-                builder: (context, child) => new Text(
-                      "Your age is ${animation.value.toStringAsFixed(0)}",
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.bold,
-                          fontStyle: FontStyle.italic),
-                    ))
-          ],
-        ),
+            padding: EdgeInsets.all(20),
+            onPressed: resetGame,
+          )
+        ],
       ),
+    );
+  }
+}
+
+class GameButton {
+  final id;
+  String text;
+  Color bg;
+  bool enabled;
+  GameButton({
+    this.id,
+    this.text = "",
+    this.bg = Colors.grey,
+    this.enabled = true,
+  });
+}
+
+class CustomDialog extends StatelessWidget {
+  final title;
+  final content;
+  final VoidCallback callback;
+  final actionText;
+
+  CustomDialog(this.title, this.content, this.callback,
+      [this.actionText = "Reset"]);
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return AlertDialog(
+      title: Text(title),
+      content: Text(content),
+      actions: [
+        FlatButton(
+          onPressed: callback,
+          child: Text(actionText),
+          color: Colors.red,
+        )
+      ],
     );
   }
 }
