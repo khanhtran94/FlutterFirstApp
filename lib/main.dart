@@ -1,27 +1,20 @@
 import 'package:flutter/material.dart';
-import 'car.dart';
 
 void main() {
-  runApp(new MyApp());
+  runApp(new MyApp(name: 'khanht', age: 20));
 }
 
 class MyApp extends StatelessWidget {
-  final titile = "GridView example 123";
-  List<int> numbers = [2, 3, 4];
-  var car = new Car(name: 'merce', year: 2020);
-  final List<int> listInt = [2, 3, 4];
+  String name;
+  int age;
+  MyApp({this.name, this.age});
 
   @override
   Widget build(BuildContext context) {
-    car.handleEven = () {
-      print("main class");
-    };
-    car.doSomething();
-    // TODO: implement build
     return new Center(
       child: Text(
-        '${car.toString()}',
-        style: TextStyle(fontSize: 30),
+        '${this.name} - ${this.age}',
+        style: TextStyle(fontSize: 30, color: Colors.amberAccent),
         textDirection: TextDirection.rtl,
       ),
     );
