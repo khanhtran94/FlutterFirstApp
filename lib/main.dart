@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
   final titile = "GridView example 123";
   List<int> numbers = [2, 3, 4];
   var car = new Car(name: 'merce', year: 2020);
+  final List<int> listInt = [2, 3, 4];
 
   @override
   Widget build(BuildContext context) {
