@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
 class MyApp extends StatelessWidget {
-  String name;
-  int age;
-  MyApp({this.name, this.age});
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,10 +8,11 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         body: Center(
           child: Text(
-            '${this.name} - ${this.age}',
+            'hello',
             style: TextStyle(color: Colors.amberAccent, fontSize: 40),
           ),
         ),
       ),
     );
   }
+}
