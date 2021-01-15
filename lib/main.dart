@@ -3,5 +3,5 @@ import 'package:flutter/material.dart';
 import 'my_app.dart';
 
 void main() {
-  runApp(new MyApp(name: 'khanht', age: 20));
+  runApp(new MyApp());
 }
