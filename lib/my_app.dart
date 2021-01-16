@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:first_app/screen_second.dart';
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "Home app",
-      home: Scaffold(
-        body: Center(
-          child: Text(
-            'hello',
-            style: TextStyle(color: Colors.amberAccent, fontSize: 40),
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('First Route'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('Open route'),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ScreenSecond()),
+            );
+          },
         ),
       ),
     );
