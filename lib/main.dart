@@ -1,4 +1,10 @@
+import 'package:first_app/models/place.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import './providers/great_places.dart';
+import './screens/places_list_screen.dart';
+import './screens/add_place_screen.dart';
 
 void main() {
   runApp(new MyApp());
@@ -7,10 +13,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Great place',
-      theme: ThemeData(
-          primaryColor: Colors.indigo, accentColor: Colors.amberAccent),
+    return ChangeNotifierProvider.value(
+      value: GreatPlace(),
+      child: MaterialApp(
+        title: 'Great place',
+        theme: ThemeData(
+            primaryColor: Colors.indigo, accentColor: Colors.amberAccent),
+        home: PlacesListScreen(),
+        routes: {AddPlaceScreen.routeName: (ctx) => AddPlaceScreen()},
+      ),
     );
   }
 }
