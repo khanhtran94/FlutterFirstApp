@@ -1,28 +1,26 @@
+import 'package:first_app/models/place.dart';
 import 'package:flutter/material.dart';
-import 'car.dart';
+import 'package:provider/provider.dart';
+
+import './providers/great_places.dart';
+import './screens/places_list_screen.dart';
+import './screens/add_place_screen.dart';
 
 void main() {
   runApp(new MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final titile = "GridView example 123";
-  List<int> numbers = [2, 3, 4];
-  var car = new Car(name: 'merce', year: 2020);
-  final List<int> listInt = [2, 3, 4];
-
   @override
   Widget build(BuildContext context) {
-    car.handleEven = () {
-      print("main class");
-    };
-    car.doSomething();
-    // TODO: implement build
-    return new Center(
-      child: Text(
-        '${car.toString()}',
-        style: TextStyle(fontSize: 30),
-        textDirection: TextDirection.rtl,
+    return ChangeNotifierProvider.value(
+      value: GreatPlace(),
+      child: MaterialApp(
+        title: 'Great place',
+        theme: ThemeData(
+            primaryColor: Colors.indigo, accentColor: Colors.amberAccent),
+        home: PlacesListScreen(),
+        routes: {AddPlaceScreen.routeName: (ctx) => AddPlaceScreen()},
       ),
     );
   }
